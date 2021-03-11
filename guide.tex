@@ -23,10 +23,51 @@
 
 \usepackage{xsim}
 \loadxsimstyle{layouts}
+
+\loadxsimstyle{layouts}
+
+\DeclareExerciseHeadingTemplate{custom}
+  {\section{\XSIMexpandcode{\XSIMtranslate{default-heading}}}}
+
+\DeclareExerciseEnvironmentTemplate{custom}
+  {%
+    \IfInsideSolutionTF
+      {\label{sol:\ExerciseID}}
+      {\label{ex:\ExerciseID}}
+      \par
+    \noindent\llap{%
+      \footnotesize\sffamily
+      \IfInsideSolutionTF
+        {%
+          \XSIMmixedcase{\GetExerciseParameter{exercise-name}}
+          on \hyperref[ex:\ExerciseID]{page~}\pageref{ex:\ExerciseID}.%
+        }
+        {%
+          \XSIMmixedcase{\GetExerciseParameter{solution-name}}
+          on \hyperref[sol:\ExerciseID]{page~}\pageref{sol:\ExerciseID}.%
+        }%
+      \hspace*{\marginparsep}%
+    }%
+    \textbf
+      {%
+        \XSIMmixedcase{\GetExerciseName}%
+        \IfInsideSolutionTF
+          {
+            to \hyperref[ex:\ExerciseID]{\GetExerciseParameter{exercise-name}%
+            ~\GetExerciseProperty{counter}}\\%%
+          }
+          {%
+            ~\GetExerciseProperty{counter}
+            \GetExercisePropertyT{subtitle}
+              { {\normalfont\itshape\PropertyValue}}%
+          }%
+      }
+  }
+  {\par}
 \xsimsetup{
-  exercise/template=runin,
-  solution/template=runin,
-  solution/print=false % Change to false to disable printing solutions
+  exercise/template = custom ,
+  solution/template = custom ,
+  print-solutions/headings-template = custom
 }
 
 \title{River flow and morpholgy -- PC practical 2}
@@ -100,8 +141,8 @@
 This practical is part of the course ``River flow and morphology''. This practical covers topics concerning the morphological development of rivers. At the end of this practical student are expected to be able to:
 \begin{enumerate}
   \item Explain the initial morphological response of a river to non-uniform steady flow
-  \item Interprete results concernig the long term morphological development of a river after a change in forcings or geometry.
-  \item Evaluate morpholodynamic development in terms of advective and diffusive behaviour
+  \item Interpret results concerning the long term morphological development of a river after a change in forcings or geometry.
+  \item Evaluate morphodynamic development in terms of advective and diffusive behaviour
   \item Relate the advective and diffusive morphodynamic behaviour to the scale of a disturbance
 \end{enumerate}
 
@@ -144,9 +185,9 @@ This produces \autoref{fig:velocity_widening}
   Explain what the dashed lines mean and also provide an explanation for the variation of the velocity (blue line).
 \end{exercise}
 \begin{solution}
-  The dashed lines indicate the equilibrium velocity. From equation 4.2 in the lecture notes we can see that a river widening results in a lower equilibrium depth. This, in turn results in a lower equilibrium velocity (law of Chezy). So we see that the equilbrium velocity in the widened reach is low than the equilibrium velocity in the upstream and downstream reach. 
+  The dashed lines indicate the equilibrium velocity. From equation 4.2 in the lecture notes we can see that a river widening results in a lower equilibrium depth. This, in turn results in a lower equilibrium velocity (law of Chezy). So we see that the equilibrium velocity in the widened reach is low than the equilibrium velocity in the upstream and downstream reach. 
 
-  The velocity profile can now be understood with respect to the equilibrium line. If the depth would be equal to the equilibrium depth (dash dotted blue line in \autoref{fig:hydrodynamics_widening}) the velocity would be equal to the equilibrium velocity. Since in the upstream reach the depth is lower, the velocity must be larger, and increasing downstream. The opposite is true for the middle reach. Here, the depth is increasing and higher than the equilibrium depht, so the velocity will be lower than the equilibrium depth and decreasing. In the downstream reach the flow is in equilibrium.
+  The velocity profile can now be understood with respect to the equilibrium line. If the depth would be equal to the equilibrium depth (dash dotted blue line in \autoref{fig:hydrodynamics_widening}) the velocity would be equal to the equilibrium velocity. Since in the upstream reach the depth is lower, the velocity must be larger, and increasing downstream. The opposite is true for the middle reach. Here, the depth is increasing and higher than the equilibrium depth, so the velocity will be lower than the equilibrium depth and decreasing. In the downstream reach the flow is in equilibrium.
 \end{solution}
 
 Now, from the velocity curves we can derive what the $\lpder{u}{x}$ curves will look like.
@@ -164,6 +205,15 @@ This produces \autoref{fig:velgrad_widening}.
 \begin{exercise}
   Explain the variation of the velocity gradient in \autoref{fig:velgrad_widening}. What do those vertical lines mean in the graph?
 \end{exercise}
+
+\begin{solution}
+  First thing to notice is the dashed line indicating a gradient of zero (i.e. the velocity does not change along the distance of the river). In the upstream reach the velocity is increasing, which means that we have a positive slope. The curve for the velocity is curving upward and we know from theory that it will follow a nearly exponential shape. This means that also the derivative will follow an exponential shape (since the derivative of an exponential is again an exponential).
+  
+  At the interface between the upstream and middle reach, the velocity suddenly drops due to the widening. A vertical drop in velocity corresponds to a $-\infty$ slope, which is represented by the vertical line in the gradient plot. After the drop at the interface we have an exponential drop in velocity in the middle section. This is reflected in the gradient graph by a negative exponential value. 
+  
+  At the interface between the middle and downstream reach, the velocity suddenly increases, which is reflected by a line going to $+\infty$ in the gradient plot. In the downstream reach te flow is in equilibrium, which means that the velocity does not change along the river, so the gradient is zero.
+\end{solution}
+
 Now we can make a similar figure for the gradient in sediment transport. The \lstinline{Backwater} class, uses a simplified sediment transport formula:
 \begin{align*}
   q_s=mu^n
@@ -171,7 +221,16 @@ Now we can make a similar figure for the gradient in sediment transport. The \ls
 \begin{exercise}
   What are the units of the constant \lstinline{m}?
 \end{exercise}
-You can find see the sediment transport constants in the \lstinline{Backwater} objects:
+
+\begin{solution}
+  The units of \lstinline{m} are found as:
+  \begin{align*}
+      &q_s=mu^n \Rightarrow [q_s]=[m][u]^n \Rightarrow [m]=\dfrac{[q_s]}{[u]^n} \Rightarrow [m]=\dfrac{\si{\m\squared\per\s}}{(\si{\m\per\s})^n}\Rightarrow\\
+      &[m]=\si{m\tothe{2-n}\s\tothe{n-1}}
+  \end{align*}
+\end{solution}
+
+You can see the sediment transport constants in the \lstinline{Backwater} objects:
 \begin{lstlisting}
 >> R(1).m_sed_transp
 
@@ -187,34 +246,59 @@ ans =
 
 >> 
 \end{lstlisting}
+
 Now we can plot the downstream gradient of sediment transport:
+
 \begin{lstlisting}
 R.plot_qs_gradient()
 \end{lstlisting}
+
 This produces \autoref{fig:qsgrad_widening}
+
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\linewidth]{matlab/qsgrad_widening.pdf}
   \caption{Downstream gradient of sediment transport.}
   \label{fig:qsgrad_widening}
 \end{figure}
-To little suprise, the gradient in sediment transport is very similar to the gradient in velocity.
+
+To little surprise, the gradient in sediment transport is very similar to the gradient in velocity.
+
 Eventually we can plot the temporal change in the bed, i.e. the erosion or sedimentation rate:
+
 \begin{lstlisting}
 R.plot_zb_gradient()
 \end{lstlisting}
+
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\linewidth]{matlab/zbgrad_widening.pdf}
-  \caption{Initilial erosion and sedimentation rates.}
+  \caption{Initial erosion and sedimentation rates.}
   \label{fig:zbgrad_widening}
 \end{figure}
+
 \begin{exercise}
   Explain the erosion and sedimentation rates. What happens at the $+\infty$ and $-\infty$ lines?
 \end{exercise}
+
+\begin{solution}
+  In the upstream reach, we have a drawdown and as a result velocity increases in downstream direction. This results in a downstream increasing sediment transport. The additional sediment that is transported comes for the eroding bed. In the middle reach we have a backwater effect with depth increasing and velocity decreasing in downstream direction. As a result sedimentation occurs.
+  
+  At the $+\infty$ we have a sudden decrease in velocity due to the widening. This results in a very strong deposition. A depositional front develops that travels downstream. The height of this front will be such that the it exactly compensates the river widening, with an equal velocity just upstream and just downstream of the widening.
+  
+  A similar thing happens at the downstream end of the widening, but here we have a sudden acceleration, with an erosional front as a result. This erosional front will propagate downstream.
+\end{solution}
+
 \begin{exercise}
-  The rates are really small O(-9). Does this make sense? (hint: convert to erosion rates per year)
+  The rates are really small O(-9). Does this make sense?
 \end{exercise}
+
+\begin{solution}
+  The rates in the equation are given in \si{\m\per\s}. An erosion rate of \SI{15e-9}{\m\per\s} corresponds to an erosion rate of:
+  \begin{align*}
+      \dfrac{\mathrm{d} z_b}{\mathrm{d} t}=\SI{-15e-9}{\m\per\s}=\SI{-15e-9}{\m\per\s}\cdot\SI{3600}{\s\per\h}\cdot\SI{24}{\h\per\day}\cdot\SI{365}{\day\per\year}=
+  \end{align*}
+\end{solution}
 Since we often want to plot these graphs together there is a plot function that will do this for us:
 \begin{lstlisting}
 R.plot_initial_ersed()
@@ -287,7 +371,7 @@ This will produce
 \section{Morphodynamics}
 In this part you will use a solver of the hyperbolic equation for 1D morphodynamics found in section 12.6 of the lecture notes. For this part you will also need to download \lstinline{morf_solver.m} and \lstinline{plot_zb_sym.m} from brightspace.
 
-We will start with a backwater obect:
+We will start with a backwater object:
 \begin{lstlisting}
 B=Backwater;
 \end{lstlisting}
@@ -339,9 +423,9 @@ plot_zb_sym(x,z_b_sym, dt)
 \end{exercise}
 Under some conditions the morphological development can be diffusive.
 \begin{exercise}
-  Modify the above case such that the morphodyanmic behaviour becomes diffusive.
+  Modify the above case such that the morphodynamic behaviour becomes diffusive.
 \end{exercise}
 
-
+\printsolutions
 
 \end{document}
