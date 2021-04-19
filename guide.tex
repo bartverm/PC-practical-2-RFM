@@ -317,13 +317,36 @@ This produces \autoref{fig:initersed_widening}. In this figure the $x$ axes of t
 \end{exercise}
 
 \begin{solution}
-  Plotting the backwater and zooming in on the transition you get something similar to this:
+  Plotting the backwater and zooming in on the transition you get something similar to \autoref{fig:zoom_backwater}.
+  \begin{figure}
+      \centering
   \includegraphics[width=\linewidth]{matlab/zoom_backwater.pdf}
+      \caption{Zooming in on the transition at A we can create a figure similar to one in the lecture notes. Zooming in, the bed-slope is no longer visible.}
+      \label{fig:zoom_backwater}
+  \end{figure}
+
 \end{solution}
 \subsection{River bend cutoff}
 \begin{exercise}
   Consider the case of a river bend cutoff discussed during the first pc practical. Make a figure of the initial erosion and sedimentation that you expect following the cutoff. Explain the graphs obtained.
 \end{exercise}
+
+\begin{solution}
+After creating the cutoff backwaters in PC Practical 1, we can plot the initial erosion and sedimentation for the cutoff case:
+\begin{lstlisting}
+B.plot_initial_ersed
+\end{lstlisting}
+This results in a figure similar to \autoref{fig:cutoff_initersed}
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{matlab/cutoff_initersed.pdf}
+    \caption{Initial sedimentation and erosion after cutoff}
+    \label{fig:cutoff_initersed}
+\end{figure}
+In the top panel of \autoref{fig:cutoff_initersed} the backwaters are reproduced. In the panel below we have a graph of the velocity. The dashed lines indicate the equilibrium velocity. The equilibrium velocity in the middle reach is larger due to the increased bed-slope. In the upstream reach the water depth drops in downstream direction and is below equilibrium depth. That explains why the velocity is larger than equilibrium velocity and increasing in downstream direction (continuity). In the middle reach velocity is lower than equilibrium depth and drops, due to the increasing depth. In the downstream reach velocity is at equilibrium.
+The gradient in sediment transport follows the gradient in velocity. It is positive and increasing in the upstream part, than suddenly drops at the transition to the middle reach, becoming negative. This is because of the backwater, causing the flow to go from accelerating conditions to decelerating condition in the middle reach. In the downstream reach flow is uniform and the gradient in sediment transport is zero.
+The rate of bed level change has opposite sign compared to the sediment transport gradient. The accelerating flow in the upstream part results in erosion. In the middle reach sedimentation occurs due to the decelerating flow loosing sediment to the bed. In the downstream part no erosion or sedimentation occurs.
+\end{solution}
 
 \section{Morphological equilibrium}
 In this section we will evaluate the long term morphological development of a river (section 12.3 in the lecture notes).
@@ -356,11 +379,14 @@ You can see that for the widened reach the river will tend to develop a steeper 
 \begin{exercise}
   Explain why the river tends to develop a larger slope and a smaller depth in the widened section
 \end{exercise}
+\begin{solution}
+In morphological equilibrium the river transports sediments at a constant rate along the river. This means that we need everywhere the same flow velocity. The river widening will be compensated by a drop in water level, which, to keep uniform conditions, requires a larger bed slope.
+\end{solution}
 We can produce a plot of the final morphological equilibrium by issuing:
 \begin{lstlisting}
 R.plot_morf_equilibrium()
 \end{lstlisting}
-This will produce
+This will produce \autoref{fig:morfeq_widening}
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\linewidth]{matlab/morfeq_widening.pdf}
