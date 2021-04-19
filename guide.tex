@@ -460,7 +460,7 @@ The function returns the $x$ locations where the solution is computed, the solve
   \end{figure}
   The dark blue area that aligns along a line is the migration of the dredged scour. The slope of this line is the celerity of the dredged bed migrating downstream. Near the end of the reach the celerity increases due to the larger velocity in the river resulting from the backwater.
 \end{solution}
-We can animate the morphological development by using the \lstinline{plot_zb_sym.m} function. This takes as input the x-coordinate of the solution and the solution. Optionally you can specify the time step of the simulation, the duration of the produced animation and the bed slope of the river.
+We can animate the morphological development by using the \lstinline{plot_zb_sym.m} function. This takes as input the x-coordinate of the solution and the solution. Optionally you can specify the time step of the simulation, the duration of the produced animation and the bed slope of the river. The latter one will remove the slope of the river from the animation, which sometimes helps to better see the morphological change.
 We will call it now with the first three arguments:
 \begin{lstlisting}
 plot_zb_sym(x,z_b_sym, dt) 
@@ -476,7 +476,8 @@ Under some conditions the morphological development can be diffusive.
   Modify the above case such that the morphodynamic behaviour becomes diffusive.
 \end{exercise}
 \begin{solution}
-    Diffusive behaviour is observed when we consider a large scale perturbation.
+    Diffusive behaviour is observed when we consider a large scale perturbation. To this end we increase the length of the reach to \SI{400}{\km} and create a lowering of the bed between $x=-\SI{150}{\km}$ and $x=\SI{350}{\km}$:
+    \lstinputlisting[linerange={23-29}]{matlab/morphodynamics_example.m}
 \end{solution}
 
 \printsolutions
