@@ -400,7 +400,7 @@ This will produce \autoref{fig:morfeq_widening}
   Determine the morphological equilibrium for the river cutoff and explain the new equilibrium that developed. What can you conclude regarding flood protection on the long run, after creating a river cutoff?
 \end{exercise}
 \begin{solution}
-  Plotting the morphological equilibrium for the cutoff case we get \autoref{fig:cutoff_morf}. Overall the bed will erode upstream of the cutoff, while retaining the same equilibrium depth. This reduces flood risk.
+  Plotting the morphological equilibrium for the cutoff case we get \autoref{fig:cutoff_morfeq}. Overall the bed will erode upstream of the cutoff, while retaining the same equilibrium depth. This reduces flood risk.
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{matlab/cutoff_morfeq.pdf}
@@ -449,7 +449,16 @@ The function returns the $x$ locations where the solution is computed, the solve
   Make a plot of the solution using the function \lstinline{imagesc}. In the figure you can see a diagonal line. What does this line represent?
 \end{exercise}
 \begin{solution}
-  
+  Plotting \lstinline|z_b_sym| with \lstinline|imagesc|:
+  \lstinputlisting[linerange={13-18}]{matlab/morphodynamics_example.m}
+  we get \autoref{fig:bed_advective}
+  \begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{matlab/bed_advective.pdf}
+      \caption{Change of bed level over time for a small scale dredging}
+      \label{fig:bed_advective}
+  \end{figure}
+  The dark blue area that aligns along a line is the migration of the dredged scour. The slope of this line is the celerity of the dredged bed migrating downstream. Near the end of the reach the celerity increases due to the larger velocity in the river resulting from the backwater.
 \end{solution}
 We can animate the morphological development by using the \lstinline{plot_zb_sym.m} function. This takes as input the x-coordinate of the solution and the solution. Optionally you can specify the time step of the simulation, the duration of the produced animation and the bed slope of the river.
 We will call it now with the first three arguments:
@@ -459,10 +468,16 @@ plot_zb_sym(x,z_b_sym, dt)
 \begin{exercise}
   The behaviour you observe is obviously advective. Under which circumstances do you expect the morphodynamic behaviour to be advective?
 \end{exercise}
+\begin{solution}
+  We expect the morphological behaviour to be advective in the case of a small scale perturbation, i.e. the scale of the perturbation is small compared to the scale at which hydrodynamics adapt.
+\end{solution}
 Under some conditions the morphological development can be diffusive.
 \begin{exercise}
   Modify the above case such that the morphodynamic behaviour becomes diffusive.
 \end{exercise}
+\begin{solution}
+    Diffusive behaviour is observed when we consider a large scale perturbation.
+\end{solution}
 
 \printsolutions
 
