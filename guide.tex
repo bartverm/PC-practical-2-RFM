@@ -399,6 +399,16 @@ This will produce \autoref{fig:morfeq_widening}
 \begin{exercise}
   Determine the morphological equilibrium for the river cutoff and explain the new equilibrium that developed. What can you conclude regarding flood protection on the long run, after creating a river cutoff?
 \end{exercise}
+\begin{solution}
+  Plotting the morphological equilibrium for the cutoff case we get \autoref{fig:cutoff_morf}. Overall the bed will erode upstream of the cutoff, while retaining the same equilibrium depth. This reduces flood risk.
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{matlab/cutoff_morfeq.pdf}
+    \caption{Morphological equilibrium for a river bend cutoff}
+    \label{fig:cutoff_morfeq}
+\end{figure}
+
+\end{solution}
 
 \section{Morphodynamics}
 In this part you will use a solver of the hyperbolic equation for 1D morphodynamics found in section 12.6 of the lecture notes. For this part you will also need to download \lstinline{morf_solver.m} and \lstinline{plot_zb_sym.m} from brightspace.
@@ -407,7 +417,7 @@ We will start with a backwater object:
 \begin{lstlisting}
 B=Backwater;
 \end{lstlisting}
-For the morphodynamic computations we use the function \lstinline{morf_solver.m} that solves the hyperbolic 1D morphodynamic equation found in section 12.6 of the lecture notes.
+For the morphodynamic computations we use the function \lstinline{morf_solver.m} that solves the hyperbolic 1D morphodynamic equation found in section 12.7 of the lecture notes.
 This functions needs three inputs:
 \begin{enumerate}
   \item A backwater object
