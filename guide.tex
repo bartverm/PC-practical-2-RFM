@@ -20,7 +20,7 @@
 
 \usepackage{parskip}
 \setlength{\parindent}{0pt}
-
+\DeclareSIUnit{\year}{y}
 \usepackage{xsim}
 \loadxsimstyle{layouts}
 
@@ -296,8 +296,10 @@ R.plot_zb_gradient()
 \begin{solution}
   The rates in the equation are given in \si{\m\per\s}. An erosion rate of \SI{15e-9}{\m\per\s} corresponds to an erosion rate of:
   \begin{align*}
-      \dfrac{\mathrm{d} z_b}{\mathrm{d} t}=\SI{-15e-9}{\m\per\s}=\SI{-15e-9}{\m\per\s}\cdot\SI{3600}{\s\per\h}\cdot\SI{24}{\h\per\day}\cdot\SI{365}{\day\per\year}=
+      \dfrac{\mathrm{d} z_b}{\mathrm{d} t}=\SI{-15e-9}{\m\per\s}=&\SI{-15e-9}{\m\per\s}\cdot\SI{3600}{\s\per\hour}\cdot\SI{24}{\hour\per\day}\cdot\SI{365}{\day\per\year}=\\
+      =&\SI{-0.473}{\m\per\year}
   \end{align*}
+  This is a reasonable erosion rate.
 \end{solution}
 Since we often want to plot these graphs together there is a plot function that will do this for us:
 \begin{lstlisting}
@@ -314,6 +316,10 @@ This produces \autoref{fig:initersed_widening}. In this figure the $x$ axes of t
   Try to produce a figure similar to the middle panel in figure 12.2 of the lecture notes, by zooming into the figure you just produced.
 \end{exercise}
 
+\begin{solution}
+  Plotting the backwater and zooming in on the transition you get something similar to this:
+  \includegraphics[width=\linewidth]{}
+\end{solution}
 \subsection{River bend cutoff}
 \begin{exercise}
   Consider the case of a river bend cutoff discussed during the first pc practical. Make a figure of the initial erosion and sedimentation that you expect following the cutoff. Explain the graphs obtained.
