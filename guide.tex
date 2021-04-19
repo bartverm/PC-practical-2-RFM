@@ -414,9 +414,8 @@ This will produce \autoref{fig:morfeq_widening}
 In this part you will use a solver of the hyperbolic equation for 1D morphodynamics found in section 12.6 of the lecture notes. For this part you will also need to download \lstinline{morf_solver.m} and \lstinline{plot_zb_sym.m} from brightspace.
 
 We will start with a backwater object:
-\begin{lstlisting}
-B=Backwater;
-\end{lstlisting}
+\lstinputlisting[linerange={8-8}]{matlab/morphodynamics_example.m}
+
 For the morphodynamic computations we use the function \lstinline{morf_solver.m} that solves the hyperbolic 1D morphodynamic equation found in section 12.7 of the lecture notes.
 This functions needs three inputs:
 \begin{enumerate}
@@ -441,20 +440,17 @@ This produces \autoref{fig:backwater_morf}
 For the morphodynamic computation we need to specify the initial condition as a deviation from the initial equilibrium bed. In this case we will try to simulate the morphodynamic development of dredged piece of river.
 Let's say we dredge \SI{2}{\m} between $-\SI{20}{\kilo\m}<x<-\SI{15}{\kilo\m}$.
 The bed changes need to be defined at the $x$ locations where the backwater is computed:
-\begin{lstlisting}
-x=B.x_curve; % get x where backwater is computed
-delta_z=zeros(size(x)); % make a first vector to hold the bed changes
-delta_z(x>-2e4 & x < -1.5e4)=-2;
-\end{lstlisting}
+\lstinputlisting[linerange={9-11}]{matlab/morphodynamics_example.m}
 You can plot \lstinline{x} vs \lstinline{delta_z} to check the result.
 Now we can run the computation. Let's run the simulation for 3 months of development:
-\begin{lstlisting}
-[x, z_b_sym, dt]=morf_solver(B,delta_z,3*30*24*3600);
-\end{lstlisting}
+\lstinputlisting[linerange={12-12}]{matlab/morphodynamics_example.m}
 The function returns the $x$ locations where the solution is computed, the solved bed and the time step used in the computation.
 \begin{exercise}
   Make a plot of the solution using the function \lstinline{imagesc}. In the figure you can see a diagonal line. What does this line represent?
 \end{exercise}
+\begin{solution}
+  
+\end{solution}
 We can animate the morphological development by using the \lstinline{plot_zb_sym.m} function. This takes as input the x-coordinate of the solution and the solution. Optionally you can specify the time step of the simulation, the duration of the produced animation and the bed slope of the river.
 We will call it now with the first three arguments:
 \begin{lstlisting}
