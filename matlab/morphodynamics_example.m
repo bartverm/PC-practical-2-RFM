@@ -11,7 +11,7 @@ delta_z=zeros(size(x)); % create the initial condition to a change in the bed le
 delta_z(x<-1.5e4 & x > -2e4)=-2; % modify the initial condition with an erosion pit between -15 and 20 km
 [x, z_b_sym, dt]=morf_solver(B,delta_z,3*30*24*3600); % Run the morphological simulation for three months
 imagesc(z_b_sym) % create a color plot of the morphodynamic prediction
-xlabel('time / 5.6 days')
+xlabel('time / 5.6 hours')
 ylabel('x / 909 m')
 hc=colorbar;
 ylabel(hc,'bed elevation / 1 m')
